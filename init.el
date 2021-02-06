@@ -15,7 +15,6 @@ There are two things you can do about this warning:
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
-(package-initialize)
 
 
 ;; set all backup to one place
@@ -25,7 +24,7 @@ There are two things you can do about this warning:
 ;; Set default font
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
-                    :height 110
+                    :height 160
                     :weight 'normal
                     :width 'normal)
 
@@ -38,25 +37,7 @@ There are two things you can do about this warning:
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
-(defun set-frame-size-according-to-resolution ()
-  (interactive)
-  (if window-system
-  (progn
-    ;; use 120 char wide window for largeish displays
-    ;; and smaller 80 column windows for smaller displays
-    ;; pick whatever numbers make sense for you
-    (if (> (x-display-pixel-width) 1280)
-           (add-to-list 'default-frame-alist (cons 'width 120))
-           (add-to-list 'default-frame-alist (cons 'width 80)))
-    ;; for the height, subtract a couple hundred pixels
-    ;; from the screen height (for panels, menubars and
-    ;; whatnot), then divide by the height of a char to
-    ;; get the height we want
-    (add-to-list 'default-frame-alist 
-         (cons 'height (/ (- (x-display-pixel-height) 200)
-                             (frame-char-height)))))))
 
-(set-frame-size-according-to-resolution)
 (load-theme 'dracula t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -64,7 +45,7 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode nil)
- '(package-selected-packages (quote (dracula-theme))))
+ '(package-selected-packages '(dracula-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
